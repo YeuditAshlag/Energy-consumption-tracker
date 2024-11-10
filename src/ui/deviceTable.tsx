@@ -2,6 +2,7 @@
 
 'use client'
 
+
 import React, { useState } from 'react';
 import useDeviceData from '../hooks/useDeviceData';
 import AddDevicePopup from './addDevicePopupProps';
