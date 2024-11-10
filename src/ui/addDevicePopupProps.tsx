@@ -17,7 +17,6 @@ const AddDevicePopup: React.FC<AddDevicePopupProps> = ({ onClose, onAddDevice })
     weeklyCost: 0,
     monthlyCost: 0,
   });
-  const [error, setError] = useState<string>('');
 
   const handleAdd = async () => {
     // to calculate daily, weekly, and monthly costs
