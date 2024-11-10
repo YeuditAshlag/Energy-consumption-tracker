@@ -134,15 +134,18 @@ The app should open automatically in your browser. If not, go to http://localhos
 
 ### Backend:
 
-* **server.ts**: Contains main server logic and API routes for handling device data.
-* **controllers/deviceController.ts**: Manages all CRUD operations for devices in MongoDB.
+* **route.tsx**: Contains main server logic and API routes for handling device data.
+* **api/devices/route.tsx**: Manages all CRUD operations for devices in MongoDB.
 
 ### Database:
 
 * **MongoDB Atlas**: Stores device data, including name, power, and usage details.
 
 ## Developer
-Yehudit Ashlag 0583261142
+Yehudit Ashlag 0583261142 
+```bash
+yeudit3269@gmail.com
+```
 
 
 
