@@ -1,11 +1,7 @@
 
-
-
 import React, { useState } from 'react';
 import { Device } from '@/types/device';
 import { calculateDailyCost, calculateWeeklyCost, calculateMonthlyCost } from '@/utils/calculations';
-import '../styles/globals.css';
-import '../styles/style.css'
 
 interface AddDevicePopupProps {
   onAddDevice: (newDevice: Device) => Promise<void>;
@@ -34,14 +30,12 @@ const AddDevicePopup: React.FC<AddDevicePopupProps> = ({ onClose, onAddDevice })
     onClose();
   };
 
-
-
   //Checking if all fields are full
   const isFormValid = device.name && device.power > 0 && device.dailyUsageHours > 0;
 
   return (
-    <div className="popup-overlay">
-      <div className="popup bg-white p-4 rounded shadow w-full max-w-sm">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
         <input
           type="text"
           placeholder="Device Name"
@@ -65,12 +59,12 @@ const AddDevicePopup: React.FC<AddDevicePopupProps> = ({ onClose, onAddDevice })
         />
         <button
           onClick={handleAdd}
-          className={`bg-green-500 text-white p-2 rounded mr-2 ${!isFormValid ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={!isFormValid} //The button is defined as disable as long as all the fields are not filled
+          className={`bg-blue-500 hover:bg-blue-900 text-white p-2 rounded mr-2 ${!isFormValid ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={!isFormValid}
         >
           Add
         </button>
-        <button onClick={onClose} className="bg-red-500 text-white p-2 rounded">
+        <button onClick={onClose} className="bg-red-500 hover:bg-red-900 text-white p-2 rounded">
           Cancel
         </button>
       </div>

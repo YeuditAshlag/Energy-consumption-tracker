@@ -4,7 +4,7 @@
 @tailwind utilities;
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
-/* עיצוב מותאם אישי */
+
 table {
   @apply w-full text-left border-collapse;
 }
@@ -13,4 +13,15 @@ th, td {
   @apply border px-4 py-2;
 }
 
+/* כותרות */
+th {
+  text-align: center; /* ממורכז */
+  vertical-align: middle; /* ממורכז גם אנכית */
+}
+
+/* ערכים בטבלה */
+td {
+  text-align: center; /* ממורכז */
+  vertical-align: middle; /* ממורכז גם אנכית */
+}
 

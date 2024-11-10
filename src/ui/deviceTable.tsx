@@ -1,9 +1,8 @@
 
 
-
 'use client'
 
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import useDeviceData from '../hooks/useDeviceData';
 import AddDevicePopup from './addDevicePopupProps';
 import '../styles/style.css';
@@ -34,7 +33,6 @@ const DeviceTable = () => {
 
   const handleAddDevice = async (newDevice: Device) => {
     try {
-      // Send new device to API
       const response = await fetch('/api/devices', {
         method: 'POST',
         headers: {
@@ -46,7 +44,7 @@ const DeviceTable = () => {
       if (response.ok) {
         const addedDevice = await response.json();
         setDevices((prevDevices) => [...prevDevices, addedDevice]);
-        await mutate();  // לרפרש
+        await mutate();  
         setIsAddDevicePopupOpen(false);
       } else {
         const errorData = await response.json();
@@ -58,7 +56,7 @@ const DeviceTable = () => {
       Swal.fire('Error!', 'There was an error adding the device.', 'error');
     }
   };
-  
+
   const handleDailyUsageChange = async (deviceId: string, newUsage: number) => {
     const deviceToUpdate = devices?.find((d) => d._id === deviceId);
     if (!deviceToUpdate) return;
@@ -111,11 +109,11 @@ const DeviceTable = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: deviceId }), // שליחת ה-ID למחיקה
+            body: JSON.stringify({ id: deviceId }),
           });
   
           if (response.ok) {
-            await mutate(); // עדכון המכשירים
+            await mutate(); // Update devices list
             Swal.fire('Deleted!', 'The device has been deleted.', 'success');
           } else {
             const errorData = await response.json();
@@ -129,7 +127,6 @@ const DeviceTable = () => {
       }
     });
   };
-  
 
   const columnHelper = createColumnHelper<Device>();
   const columns = [
@@ -148,18 +145,37 @@ const DeviceTable = () => {
         />
       ),
     }),
-    columnHelper.accessor('dailyCost', { header: 'Daily Cost' }),
-    columnHelper.accessor('weeklyCost', { header: 'Weekly Cost' }),
-    columnHelper.accessor('monthlyCost', { header: 'Monthly Cost' }),
+    columnHelper.accessor('dailyCost', {
+      header: 'Daily Cost',
+      cell: ({ row }) => (
+        <span> ₪ {row.original.dailyCost.toFixed(3)}</span>
+      ),
+    }),
+    columnHelper.accessor('weeklyCost', {
+      header: 'Weekly Cost',
+      cell: ({ row }) => (
+        <span>₪ {row.original.weeklyCost.toFixed(3)}</span>
+      ),
+    }),
+    columnHelper.accessor('monthlyCost', {
+      header: 'Monthly Cost',
+      cell: ({ row }) => (
+        <span>₪ {row.original.monthlyCost.toFixed(3)}</span>
+      ),
+    }),
     {
       id: 'delete',
       header: 'Delete',
       cell:({ row }: { row: any }) => (
-        <i className="fas fa-trash text-red-500 hover:text-red-700 cursor-pointer"
-          onClick={() => handleDeleteDevice(row.original._id as string)}
-        ></i>
+        <td className="flex justify-center items-center border-none">
+          <i
+            className="fas fa-trash text-red-500 hover:text-red-700 cursor-pointer"
+            onClick={() => handleDeleteDevice(row.original._id as string)}
+          ></i>
+        </td>
       ),
-    },
+    }
+    
   ];
 
   const table = useReactTable({
@@ -170,7 +186,7 @@ const DeviceTable = () => {
 
   return (
     <div>
-      <button onClick={() => setIsAddDevicePopupOpen(true)} className="mb-4 p-2 bg-blue-500 text-white rounded">
+      <button onClick={() => setIsAddDevicePopupOpen(true)} className="mb-4 p-2 bg-red-500 hover:bg-red-700 text-white rounded shadow-md hover:bg-blue-600 transition">
         Add Device
       </button>
       {isAddDevicePopupOpen && (
@@ -179,13 +195,13 @@ const DeviceTable = () => {
           onClose={() => setIsAddDevicePopupOpen(false)}
         />
       )}
-      <table className="min-w-full table-auto border-collapse">
-        <thead>
+      <table className="min-w-full table-auto border-separate border-spacing-2">
+        <thead className="bg-gray-800 text-white">
           <tr>
             {table.getHeaderGroups().map(headerGroup => (
               <React.Fragment key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id} className="border px-4 py-2">
+                  <th key={header.id} className="px-4 py-2 text-left font-medium">
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </th>
                 ))}
@@ -195,7 +211,7 @@ const DeviceTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <tr key={row.original._id as string}>
+            <tr key={row.original._id as string} className="hover:bg-gray-100 transition">
               {row.getVisibleCells().map(cell => (
                 <td key={cell.id} className="border px-4 py-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
