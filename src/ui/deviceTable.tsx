@@ -149,19 +149,19 @@ const DeviceTable = () => {
     columnHelper.accessor('dailyCost', {
       header: 'Daily Cost',
       cell: ({ row }) => (
-        <span> ₪ {row.original.dailyCost.toFixed(3)}</span>
+        <span> ₪ {row.original.dailyCost.toFixed(2)}</span>
       ),
     }),
     columnHelper.accessor('weeklyCost', {
       header: 'Weekly Cost',
       cell: ({ row }) => (
-        <span>₪ {row.original.weeklyCost.toFixed(3)}</span>
+        <span>₪ {row.original.weeklyCost.toFixed(2)}</span>
       ),
     }),
     columnHelper.accessor('monthlyCost', {
       header: 'Monthly Cost',
       cell: ({ row }) => (
-        <span>₪ {row.original.monthlyCost.toFixed(3)}</span>
+        <span>₪ {row.original.monthlyCost.toFixed(2)}</span>
       ),
     }),
     {
